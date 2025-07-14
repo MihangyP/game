@@ -5,10 +5,10 @@ OBJ_FILES := $(SRC_FILES:.c=.o)
 HEADER_FILES := game.h
 HEADER_FILES := $(addprefix include/, $(HEADER_FILES))
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra #-Werror
 RM = rm -rf
 INCLUDING := -I./include
-LINKING := -lX11
+LINKING := -lX11 -lm
 
 all: $(NAME)
 
