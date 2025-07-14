@@ -53,18 +53,30 @@ int	main(void) {
 	int screen = DefaultScreen(display);
 	GC gc = DefaultGC(display, screen);
 
+	Point player_position = {W_WIDTH/2, W_HEIGHT/2};
+	int	player_radius = 30;
+
 	while (1) {
 		XEvent event;
 		XNextEvent(display, &event);
 		if (event.type == KeyPress) {
 			if (event.xkey.keycode == 0x09) {
 				break ;
-			}
-		} 
+			} else if (event.xkey.keycode == K_w) {
+				player_position.y -= 10;
+			} else if (event.xkey.keycode == K_s) {
+				player_position.y += 10;
+			} else if (event.xkey.keycode == K_a) {
+				player_position.x -= 10;
+			} else if (event.xkey.keycode == K_d) {
+				player_position.x += 10;
+			}   
+			XClearWindow(display, window);
+		}
 		XSetForeground(display, gc, 0x181818);
 		clear_background(display, window, gc);
 		XSetForeground(display, gc, 0xFF0000);
-		draw_circle(display, window, gc, (Point){W_WIDTH/2, W_HEIGHT/2}, 42);
+		draw_circle(display, window, gc, player_position, player_radius);
 	}
 	XFlush(display);
 	XCloseDisplay(display);
